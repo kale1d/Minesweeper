@@ -8,6 +8,7 @@ function Cell(i,j,w) {
   this.adjacentCount = 0;
   this.mine = false;
   this.revealed = false;
+  this.flagged = false;
 };
 
 //Add properties for the object Cell
@@ -17,8 +18,9 @@ Cell.prototype.show = function() {
   rect(this.x, this.y, this.w, this.w);
   if (this.revealed) {
     if (this.mine) {
+      fill(0);
       ellipse(this.x + this.w * 0.5, this.y + this.w * 0.5, this.w * 0.5); //creates the bomb image
-    } else { 
+    } else if (!this.flagged) { 
       fill(200);
       rect(this.x, this.y, this.w, this.w);
       if (this.adjacentCount > 0) {
@@ -27,6 +29,10 @@ Cell.prototype.show = function() {
         text(this.adjacentCount, this.x + this.w * 0.5 , this.y + this.w - 18); //Number of adjacent bombs and place it in the center
       }
     }
+  }
+  if (this.flagged) {
+    fill('red');
+    ellipse(this.x + this.w * 0.5, this.y + this.w * 0.5, this.w * 0.5); //creates the flag image
   }
 }
 
@@ -39,11 +45,15 @@ Cell.prototype.contains = function (x, y) {
 // Reveals the cell content
 Cell.prototype.reveal = function () {
   this.revealed = true;
-  if (this.adjacentCount === 0) {
+  if (this.adjacentCount === 0 && !this.flagged) {
     this.cleanEmpty();
   }
 }
 
+//Adds a flag to the cell.
+Cell.prototype.flag = function () { 
+  this.flagged = true;
+}
 //Clean all empty adjacent cells (no mines around).
 Cell.prototype.cleanEmpty = function () {
   for (let xOffset = -1; xOffset <=1; xOffset++) {

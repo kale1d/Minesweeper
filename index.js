@@ -70,10 +70,17 @@ function mousePressed() {
 	for (let i = 0; i < cols; i++) {
 		for (let j = 0; j < rows; j++) {
 			if (grid[i][j].contains(mouseX, mouseY)) {
-				grid[i][j].reveal();
+				if(mouseButton === LEFT) {
+					if (!grid[i][j].flagged) {
+						grid[i][j].reveal();
+					}
 
-				if (grid[i][j].mine) {
-					gameOver();
+					if (grid[i][j].mine) {
+						gameOver();
+					}
+				}
+				if(mouseButton === RIGHT) {
+					grid[i][j].flag();
 				}
 			}
 		}		
