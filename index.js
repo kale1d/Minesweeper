@@ -59,16 +59,6 @@ function getAdjacentCells () {
 	}
 }
 
-//Ends the game if you click a mine.
-function gameOver() {
-	// Returns the number of adjacent cells.
-	for (let i = 0; i < cols; i++) {
-		for (let j = 0; j < rows; j++) {
-			grid[i][j].revealed = true; 
-		}		
-	}
-}
-
 //If press the mouse in a cell shows the content of the cell.
 function mousePressed() {
 	for (let i = 0; i < cols; i++) {
@@ -91,8 +81,8 @@ function mousePressed() {
 	}
 }
 
-//Setting up the board.
-function setup() {
+//Create the game
+function init () {
 	createCanvas(401,401);
 
 	cols = floor(width / w); //Calculates the number of columns.
@@ -103,7 +93,28 @@ function setup() {
 	getTotalPositions();
 	createRandomMinesPosition();
 	getAdjacentCells();
+}
 
+//Ends the game if you click a mine.
+function gameOver() {
+	// Returns the number of adjacent cells.
+	for (let i = 0; i < cols; i++) {
+		for (let j = 0; j < rows; j++) {
+			grid[i][j].revealed = true; 
+		}		
+	}
+}
+
+//Creates the button and calls a function inside to restart the game
+function restartGame () {
+  const button = createButton('Restart Game');
+  button.mousePressed(init);
+}
+
+//Setting up the board.
+function setup() {
+	restartGame();
+	init();
 }
 
 function draw() {

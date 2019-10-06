@@ -1,0 +1,26 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+
+button {
+  background: #fff;
+  border: 1px solid;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-family: Helvetica Neue;
+  font-weight: 900;
+  font-style: normal;
+  margin-bottom: 20px;
+  padding: 5px 20px 5px 20px;
+  white-space: nowrap;
+  }
